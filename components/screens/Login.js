@@ -44,7 +44,7 @@ const LogIn = ({navigation}) => {
         </TouchableOpacity>
 
         <View>
-          <ButtonRegular label="Login" clickFunction={()=>{alert("Login successful")}}/>
+          <ButtonRegular label="Login" clickFunction={()=>{navigation.navigate("HomeScreen")}}/>
         </View>
 
         <TouchableOpacity

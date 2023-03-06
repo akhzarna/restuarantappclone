@@ -8,10 +8,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { ButtonLarge } from "./components/buttons/ButtonLarge";
 
 import { SignUp } from "./components/screens/SignUp";
-import { LogIn } from "./components/screens/Login";
+import { Home, LogIn } from "./components/screens/Login";
 import { Otp } from "./components/screens/otp";
 import { ForgotPassword } from "./components/screens/ForgotPassword";
 import { ResetPassword } from "./components/screens/ResetPassword";
+import {HomeScreen} from "./components/screens/HomeScreen";
 
 
 const Stack = createStackNavigator(
@@ -27,6 +28,7 @@ export default function App() {
         <Stack.Screen name="OtpScreen" component={Otp}/>
         <Stack.Screen name="ForgotPasswordScreen" component={ForgotPassword}/>
         <Stack.Screen name="ResetPasswordScreen" component={ResetPassword}/>
+        <Stack.Screen name="HomeScreen" component={HomeScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

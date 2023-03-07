@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
 
 import { TextFieldLarge } from "../fields/TextFieldLarge";
 import { ButtonRegular } from "../buttons/ButtonRegular";
@@ -22,7 +22,7 @@ const LogIn = ({navigation}) => {
 
       </View>
 
-      <View style={{ flex: 0.7 , marginLeft:18, marginRight:32}}>
+      <View style={{ flex: 0.60, alignItems:'center'}}>
         <TextFieldLarge label={"E-mail"} />
         <TextFieldLarge label={"Password"} isPasswordField={true} />
 

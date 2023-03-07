@@ -1,18 +1,11 @@
-import { 
-    View, 
-    Text, 
-    TouchableOpacity, 
-    StyleSheet 
-} from "react-native";
-
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const ButtonLarge = ({ label, isPrimary, navigation }) => {
-    
   if (isPrimary) {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("LogInScreen")
+          navigation.navigate("LogInScreen");
         }}
       >
         <View style={styles.buttonPrimary}>
@@ -24,7 +17,9 @@ const ButtonLarge = ({ label, isPrimary, navigation }) => {
 
   return (
     <TouchableOpacity
-      onPress={()=> {navigation.navigate("SignUpScreen")}}
+      onPress={() => {
+        navigation.navigate("SignUpScreen");
+      }}
     >
       <View style={styles.button}>
         <Text style={styles.buttonText}>{label}</Text>

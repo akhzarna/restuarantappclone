@@ -13,7 +13,7 @@ const LogIn = ({navigation}) => {
 
       <View style={{alignItems:'center', flex:0.30}}>
 
-        <View style={{ marginTop: 40, marginLeft: 20 }}>
+        <View style={{ marginTop: 40, marginLeft: 16 }}>
           <Image
             style={{ height: 60, width: 300 }}
             source={require("../../assets/images/logo.png")}
@@ -22,7 +22,7 @@ const LogIn = ({navigation}) => {
 
       </View>
 
-      <View style={{ flex: 0.7 , marginLeft:32, marginRight:32}}>
+      <View style={{ flex: 0.7 , marginLeft:18, marginRight:32}}>
         <TextFieldLarge label={"E-mail"} />
         <TextFieldLarge label={"Password"} isPasswordField={true} />
 

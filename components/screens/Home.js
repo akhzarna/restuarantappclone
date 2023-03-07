@@ -204,7 +204,7 @@ function Home({navigation}) {
           showsHorizontalScrollIndicator={false}
           data={menuItems}
           renderItem={({ item }) => (
-            <BestSellerCard burger={item} setMenuItems={setMenuItems} />
+            <BestSellerCard burger={item} navigation={navigation} setMenuItems={setMenuItems} />
           )}
           keyExtractor={(item) => item.key}
         />
@@ -329,9 +329,9 @@ const BurgerCard = ({ burger, navigation }) => {
   );
 };
 
-const BestSellerCard = ({ burger }) => {
+const BestSellerCard = ({ burger, navigation }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>{navigation.navigate("Details", {item: burger})}}>
       <View
         style={{
           flex: 1,

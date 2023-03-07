@@ -8,7 +8,7 @@ const Otp = ({navigation}) => {
     return (
         <View style={styles.container}>
 
-        <TitleBarLogin title={"Otp Number"} isBackVisible={true}/>
+        <TitleBarLogin title={"Otp Number"} isBackVisible={true} backFunction={()=>{navigation.pop()}}/>
 
         <View style={{alignItems:'center', flex:0.60}}>
 

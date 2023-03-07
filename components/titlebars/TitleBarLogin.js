@@ -1,14 +1,14 @@
 import { View, Text } from "react-native"
 import { BackButton } from "../buttons/BackButton"
 
-const TitleBarLogin = ({title, backFuunction, isBackVisible}) => {
+const TitleBarLogin = ({title, backFunction, isBackVisible}) => {
 
   if(isBackVisible){
     return(
       <View
       style={{ flex: 0.10, marginTop: 60, marginLeft: 32, marginBottom:0, flexDirection:'row'}}
     >
-      <BackButton backFuunction={backFuunction}/>
+      <BackButton backFuunction={backFunction}/>
       <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 24, marginLeft:8}}>
         {title}
       </Text>

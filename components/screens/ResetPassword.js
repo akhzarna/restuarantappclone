@@ -8,7 +8,7 @@ const ResetPassword = ({navigation}) => {
     return (
         <View style={styles.container}>
 
-        <TitleBarLogin title={"Forgot Passowrd"} isBackVisible={true}/>
+        <TitleBarLogin title={"Forgot Passowrd"} isBackVisible={true} backFunction={()=>{navigation.pop()}}/>
 
         <View style={{alignItems:'center', flex:0.60, marginLeft:16, marginRight:16}}>
 

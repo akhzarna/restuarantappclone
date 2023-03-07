@@ -7,14 +7,14 @@ import { TitleBarLogin } from "../titlebars/TitleBarLogin";
 
 import { useState } from "react";
 
-const SignUp = () => {
+const SignUp = ({navigation}) => {
 
     const [isChecked, setChecked] = useState(false)
 
     return (
         <View style={styles.container}>
 
-        <TitleBarLogin title={"Sign Up"} isBackVisible={true}/>
+        <TitleBarLogin title={"Sign Up"} isBackVisible={true} backFunction={()=>{navigation.pop()}}/>
 
         <View style={{alignItems:'center', flex:0.60}}>
 

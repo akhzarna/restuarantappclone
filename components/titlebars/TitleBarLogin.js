@@ -1,15 +1,32 @@
 import { View, Text } from "react-native"
+import { BackButton } from "../buttons/BackButton"
 
-const TitleBarLogin = ({title}) => {
+const TitleBarLogin = ({title, backFuunction, isBackVisible}) => {
+
+  if(isBackVisible){
     return(
-        <View
-        style={{ flex: 0.10, marginTop: 60, marginLeft: 32, marginBottom:0}}
-      >
-        <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 24 }}>
-          {title}
-        </Text>
-      </View>
-    )
+      <View
+      style={{ flex: 0.10, marginTop: 60, marginLeft: 32, marginBottom:0, flexDirection:'row'}}
+    >
+      <BackButton backFuunction={backFuunction}/>
+      <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 24, marginLeft:8}}>
+        {title}
+      </Text>
+    </View>
+  )
+  }
+
+  return(
+    <View
+    style={{ flex: 0.10, marginTop: 60, marginLeft: 32, marginBottom:0, flexDirection:'row'}}
+  >
+    <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 24, marginLeft:8}}>
+      {title}
+    </Text>
+  </View>
+)
+
+    
 }
 
 export {TitleBarLogin}

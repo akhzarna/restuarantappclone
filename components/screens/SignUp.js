@@ -14,7 +14,7 @@ const SignUp = () => {
     return (
         <View style={styles.container}>
 
-        <TitleBarLogin title={"Sign Up"}/>
+        <TitleBarLogin title={"Sign Up"} isBackVisible={true}/>
 
         <View style={{alignItems:'center', flex:0.60}}>
 

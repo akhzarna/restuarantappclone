@@ -17,6 +17,7 @@ import { IconButton } from "@react-native-material/core";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { SquareButton } from "../buttons/SquareButton";
 import { Details } from "./Details";
+import { Search } from "./Search";
 
 const categories = [
   {
@@ -44,6 +45,7 @@ const HomeRoot = () => {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home}/>
         <Stack.Screen name="Details" component={Details}/>
+        <Stack.Screen name="Search" component={Search}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -84,7 +86,7 @@ function Home({navigation}) {
     <ScrollView style={{ flex: 1, backgroundColor: "#fafbff" }}>
       <TitleBarRegular />
 
-      <View style={{ margin: 20 }}>
+      <View style={{ flex:1, margin: 20 }}>
         <Text
           style={{
             fontFamily: "Poppins-SemiBold",
@@ -101,7 +103,7 @@ function Home({navigation}) {
 
       <View style={{ marginLeft: 20, flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 0.8 }}>
-          <SearchBar label="Search your favorite food" />
+          <SearchBar label="Search your favorite food" isTextInputDisabled={true} onClick={()=>{navigation.navigate('Search')}}/>
         </View>
 
         <View style={{ flex: 0.2 }}>

@@ -11,7 +11,7 @@ const Details = ({ route, navigation }) => {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fafbff" }}>
-      <TitleBarRegular contentVisible={true} backFunction={() => {navigation.pop()}}/>
+      <TitleBarRegular contentVisible={true} label="Detail" isSecondaryButtonEnabled={true} backFunction={() => {navigation.pop()}}/>
 
       <View style={{ flex: 1 }}>
         <View

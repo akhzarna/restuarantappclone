@@ -3,9 +3,28 @@ import { BackButton } from "../buttons/BackButton";
 
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
-const TitleBarRegular = ({contentVisible, backFunction}) => {
+const TitleBarRegular = ({contentVisible, backFunction, label, isSecondaryButtonEnabled}) => {
 
-  if(contentVisible){  return <View style={styles.container}>
+  if(contentVisible){  
+    
+    if(!isSecondaryButtonEnabled){
+
+      return <View style={styles.container}>
+    <View style={{flex:0.20, alignContent:'center', justifyContent:'center'}}>
+      <View style={{marginTop:28, marginLeft:20}}>
+        <BackButton backFuunction={backFunction}/>
+      </View>
+  
+    </View>
+    <View style={{flex:0.60, alignContent:'center', justifyContent:'center'}}>
+      <Text style={{textAlign:'center', marginTop:30, fontFamily:'Poppins', fontSize:18}}>{label}</Text>
+    </View>
+    </View>
+  
+    }
+
+    else{
+ return <View style={styles.container}>
   <View style={{flex:0.20, alignContent:'center', justifyContent:'center'}}>
     <View style={{marginTop:28, marginLeft:20}}>
       <BackButton backFuunction={backFunction}/>
@@ -13,7 +32,7 @@ const TitleBarRegular = ({contentVisible, backFunction}) => {
 
   </View>
   <View style={{flex:0.60, alignContent:'center', justifyContent:'center'}}>
-    <Text style={{textAlign:'center', marginTop:30, fontFamily:'Poppins', fontSize:18}}>Detail</Text>
+    <Text style={{textAlign:'center', marginTop:30, fontFamily:'Poppins', fontSize:18}}>{label}</Text>
   </View>
   <View
       style={{
@@ -32,6 +51,10 @@ const TitleBarRegular = ({contentVisible, backFunction}) => {
 
   </View>
 
+    }
+    
+    
+   
   }
 
   return <View style={styles.container}></View>

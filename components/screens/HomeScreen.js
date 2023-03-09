@@ -4,7 +4,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-import { Home, HomeRoot } from "./Home";
+import { HomeRoot } from "./Home";
+import { FavRoot } from "./Favorites";
 
 function Profile() {
   return (
@@ -18,23 +19,6 @@ function Profile() {
     >
       <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 20 }}>
         Profile
-      </Text>
-    </View>
-  );
-}
-
-function Favorites() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#fafbff",
-      }}
-    >
-      <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 20 }}>
-        Favorites
       </Text>
     </View>
   );
@@ -66,9 +50,7 @@ export function HomeScreen() {
           tabBarIcon: ({ focused }) => {
             let iconName;
             if (route.name === "Favorites") {
-              iconName = focused
-                ? "chatbox-ellipses"
-                : "chatbox-ellipses-outline";
+              iconName = focused ? "heart" : "heart-outline";
             } else if (route.name === "Home") {
               iconName = focused ? "home" : "home-outline";
             } else if (route.name === "Cart") {
@@ -96,7 +78,7 @@ export function HomeScreen() {
         })}
       >
         <Tab.Screen name="Home" component={HomeRoot} />
-        <Tab.Screen name="Favorites" component={Favorites} />
+        <Tab.Screen name="Favorites" component={FavRoot} />
         <Tab.Screen name="Cart" component={Cart} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>

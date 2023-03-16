@@ -39,7 +39,7 @@ const SignUp = ({navigation}) => {
             </View>
 
             <View style={{flexDirection:'row'}}>
-                <Checkbox value={isChecked} color={isChecked? "#F44648" : undefined} onValueChange={()=>{isChecked? setChecked(false) : setChecked(true)}} style={{flex: 0.04, margin:8, borderRadius:6, borderColor:'darkgrey',}}/>
+                {/* <Checkbox value={isChecked} color={isChecked? "#F44648" : undefined} onValueChange={()=>{isChecked? setChecked(false) : setChecked(true)}} style={{flex: 0.04, margin:8, borderRadius:6, borderColor:'darkgrey',}}/> */}
                 <Text style={{fontFamily:'Poppins', fontSize:16, flex:0.80}}>I accept the Terms of Use and Privacy Policy</Text>
             </View>
 

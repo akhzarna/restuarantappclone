@@ -6,7 +6,6 @@ import { TitleBarRegular } from "../titlebars/TitleBarRegular";
 
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
-
 const categories = [
     {
       id: 0,

@@ -19,6 +19,10 @@ import { SquareButton } from "../buttons/SquareButton";
 import { Details } from "./Details";
 import { Search } from "./Search";
 
+import axios from 'axios';
+
+import getApiHook from "../hooks/GetApiHook";
+
 const categories = [
   {
     id: 0,
@@ -52,6 +56,55 @@ const HomeRoot = () => {
 }
 
 function Home({navigation}) {
+
+  const [myburgers, setMyburgers] = useState([])
+
+  const getBurgers = async () => {
+    try {
+      const response = await fetch('https://reactnative.dev/movies.json');
+      const json = await response.json();
+      setMyburgers(json.movies);
+      console.log('Burger Data ==',myburgers)
+    } catch (error) {
+      console.error(error);
+    } finally {
+      // setLoading(false);
+    }
+
+
+
+
+
+    // try {
+    //   const response = await fetch('https://reactnative.dev/movies.json');
+    //   const json = await response.json();
+    //   // console.log('Burgers === ',json.movies)
+
+    //   setMyburgers(json.movies)
+
+    //   console.log('Burgers === ',myburgers)
+
+    //   // setData(json.movies);
+    // } catch (error) {
+    //   console.error(error);
+    // } finally {
+    //   // setLoading(false);
+    // }
+
+    // Passing configuration object to axios
+    // axios({
+    //   method: 'GET',
+    //   url: 'https://reactnative.dev/movies.json',
+    // }).then((response) => {
+    //   console.log(response.data);
+    // });
+
+  };
+
+  useEffect(()=>{
+    getBurgers();
+  },[])
+
   const [menuItems, setMenuItems] = useState([
     {
       key: 0,
@@ -204,7 +257,8 @@ function Home({navigation}) {
       <View style={{ flex: 0.2, margin: 20, marginBottom: 20 }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          data={menuItems}
+          // horizontal={true}
+          data={myburgers}
           renderItem={({ item }) => (
             <BestSellerCard burger={item} navigation={navigation} setMenuItems={setMenuItems} />
           )}
@@ -348,10 +402,12 @@ const BestSellerCard = ({ burger, navigation }) => {
         <View
           style={{ flex: 0.25, alignItems: "center", justifyContent: "center" }}
         >
+          
           <Image
             source={burger.img_src}
             style={{ width: 60, height: 60, marginLeft: 16 }}
           />
+
         </View>
 
         <View
@@ -365,8 +421,9 @@ const BestSellerCard = ({ burger, navigation }) => {
           <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 18 }}>
             {burger.title}
           </Text>
+          
           <Text style={{ fontFamily: "Poppins", fontSize: 16 }}>
-            {burger.price}
+            {burger.releaseYear}
           </Text>
         </View>
 

@@ -21,8 +21,6 @@ import { Search } from "./Search";
 
 import axios from 'axios';
 
-import getApiHook from "../hooks/GetApiHook";
-
 const categories = [
   {
     id: 0,
@@ -60,19 +58,27 @@ function Home({navigation}) {
   const [myburgers, setMyburgers] = useState([])
 
   const getBurgers = async () => {
-    try {
-      const response = await fetch('https://reactnative.dev/movies.json');
-      const json = await response.json();
-      setMyburgers(json.movies);
-      console.log('Burger Data ==',myburgers)
-    } catch (error) {
-      console.error(error);
-    } finally {
-      // setLoading(false);
-    }
+  
+  var myURL = 'https://reactnative.dev/movies.json'
+  axios.get(myURL)
+  .then(function (response) {
+    console.log("response.data==", response.data);
+    setMyburgers(response.data.movies);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
-
-
+    // try {
+    //   const response = await fetch('https://reactnative.dev/movies.json');
+    //   const json = await response.json();
+    //   setMyburgers(json.movies);
+    //   console.log('Burger Data ==',myburgers)
+    // } catch (error) {
+    //   console.error(error);
+    // } finally {
+    //   // setLoading(false);
+    // }
 
 
     // try {
@@ -139,7 +145,7 @@ function Home({navigation}) {
     <ScrollView style={{ flex: 1, backgroundColor: "#fafbff" }}>
       <TitleBarRegular />
 
-      <View style={{ flex:1, margin: 20 }}>
+      {/* <View style={{ flex:1, margin: 20 }}>
         <Text
           style={{
             fontFamily: "Poppins-SemiBold",
@@ -152,7 +158,7 @@ function Home({navigation}) {
         <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 24 }}>
           Choose your favorite food
         </Text>
-      </View>
+      </View> */}
 
       <View style={{ marginLeft: 20, flex: 1, flexDirection: "row" }}>
         <View style={{ flex: 0.8 }}>
@@ -257,7 +263,7 @@ function Home({navigation}) {
       <View style={{ flex: 0.2, margin: 20, marginBottom: 20 }}>
         <FlatList
           showsHorizontalScrollIndicator={false}
-          // horizontal={true}
+          horizontal={true}
           data={myburgers}
           renderItem={({ item }) => (
             <BestSellerCard burger={item} navigation={navigation} setMenuItems={setMenuItems} />

@@ -18,7 +18,7 @@ const TextFieldLarge = ({ label, isPasswordField }) => {
       }}
     >
       <TextInput
-      cursorColor={"darkgrey"}
+        cursorColor={"darkgrey"}
         style={{ marginLeft: 20, fontFamily:'Poppins' }}
         placeholder={label}
         secureTextEntry={isPasswordField ? true : false}

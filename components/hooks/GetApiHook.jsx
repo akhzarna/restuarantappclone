@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const getApiHook = () => {
+    
     const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    // const [loading, setLoading] = useState(true);
+    // const [error, setError] = useState("");
     
     const getData = async (url, token = null) => {
       await axios
@@ -38,6 +39,7 @@ const getApiHook = () => {
     };
   
     return { data, loading, error, getData };
+
   };
   
   export default getApiHook;

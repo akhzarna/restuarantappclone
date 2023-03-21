@@ -4,8 +4,24 @@ import { TextFieldLarge } from "../fields/TextFieldLarge";
 import { ButtonRegular } from "../buttons/ButtonRegular";
 import { TitleBarLogin } from "../titlebars/TitleBarLogin";
 
+import app from "./firebase";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { useEffect } from "react";
 
 const LogIn = ({navigation}) => {
+
+  useEffect(()=>{
+    const db = getDatabase(app);
+    const dbRef = ref(db, 'sp21');
+    console.log("Receiving Data");
+    onValue(dbRef, (snapshot) => {
+      let data = snapshot.val();
+      // data = data.filter((item) => item !== "undefined");
+      // setData(data);
+      console.log("Data Received --->", data);
+    });
+    // console.log('Binyamin')
+  },[])
 
   return (
     <View style={styles.container}>

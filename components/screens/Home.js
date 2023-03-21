@@ -108,7 +108,7 @@ function Home({navigation}) {
   };
 
   useEffect(()=>{
-    getBurgers();
+    getNewFunction();
   },[])
 
   const [menuItems, setMenuItems] = useState([

@@ -110,31 +110,35 @@ function Home({navigation}) {
   };
 
   useEffect(()=>{
-    console.log('is this called ???')
+
+    // console.log('is this called ???')
     const db = getDatabase(app);
     const dbRef = ref(db, 'alldeals');
     onValue(dbRef, (snapshot) => {
       let data = snapshot.val();
-      // setMyburgers(data)
-      console.log("foodie moodie data --->", data[0].firstarray.length);
-      console.log("foodie moodie data --->", data[1].secondtarray.length);
-      console.log("foodie moodie data --->", data[2].thirdarray.length);
-      setMyburgers(data[2].thirdarray)
+      console.log('data is ==',data.burgers.length)
+      console.log('data is ==',data.deals.length)
+      console.log('data is ==',data.recent.length)
+      setMyburgers(data.recent)
+      // setMyburgers(data[2].thirdarray)
     });
 
     // const db = getDatabase(app)
 
-    var index = 2
-    var dbRefRef = 'alldeals/1/secondtarray/'+index
-    const dbRefforUpdate = ref(db, dbRefRef)
-    update(dbRefforUpdate,{
-      
-      "like": 6
-    
+    // var index = 2
+    // var dbRefRef = 'alldeals/1/secondtarray/'+index
+
+    var index = 4
+    var refData = "alldeals/recent/" + index
+    const dbRefForUpdate = ref(db, refData)
+    update(dbRefForUpdate,{
+      "isLiked": 7
     })
-    },[])
+    
 
     // set(dbRef, [{"description": "Hello", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%201.jpeg?alt=media&token=8d457d84-4ff1-4264-927e-1a620223a584", "key": 0, "price": 1400, "title": "Deal 1"}, {"description": "Hello 2", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%202.jpeg?alt=media&token=75f39345-4eda-4045-97d4-fa5bc7e80cde", "key": 1, "price": 1500, "title": "Deal 2"}, {"description": "Hello 456", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%203.png?alt=media&token=63187eb1-b1c7-439a-8cdc-a3753ec7cdc4", "key": 2, "price": 1800, "title": "Deal 3"}, {"description": "Hello World", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%204.jpeg?alt=media&token=feebbc83-8970-467b-8315-055a59179a04", "key": 3, "price": 1200, "title": "Deal 4"}, {"description": "Hello 5", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%205.jpeg?alt=media&token=bbe572eb-e05e-4c1c-97f7-46e20f63ad2b", "key": 4, "price": 800, "title": "Deal 5"}])
+
+  },[])
 
   const [menuItems, setMenuItems] = useState([
     {

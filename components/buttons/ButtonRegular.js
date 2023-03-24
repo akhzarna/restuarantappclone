@@ -4,55 +4,55 @@ import axios from 'axios';
 
 const ButtonRegular = ({ label, clickFunction }) => {
   
-  clickFunction=()=>{
+  // clickFunction=()=>{
 
-    Alert.alert('Sign Up Button Click')
-
-
+  //   Alert.alert('Sign Up Button Click')
 
 
 
 
-  // fetch('http://talk2you-live.lingmo-api.com/api/user', {
-  //   method: 'POST',
-  //   headers: {
-  //     Accept: "application/json",
-  //     Authorization: global.userData?.token ? global.userData.token : "",
-  //   },
-  //   body: JSON.stringify({
-  //     password: "Hello123",
+
+
+  // // fetch('http://talk2you-live.lingmo-api.com/api/user', {
+  // //   method: 'POST',
+  // //   headers: {
+  // //     Accept: "application/json",
+  // //     Authorization: global.userData?.token ? global.userData.token : "",
+  // //   },
+  // //   body: JSON.stringify({
+  // //     password: "Hello123",
+  // //     languageId: "en-US",
+  // //     couponCode: "",
+  // //     username: "abc123",
+  // //     deviceToken: "",
+  // //     fullName: "ABC",
+  // //     email: "abc@gmail.com",
+  // //     notificationApp: "lingmoimtab",
+  // //     phone: "03244444444",
+  // //   }),
+  // // })
+
+  // axios.post('http://talk2you-live.lingmo-api.com/api/user', {
+      
+  //     password: "12345678901234567890",
   //     languageId: "en-US",
   //     couponCode: "",
-  //     username: "abc123",
+  //     username: "zohaib102",
   //     deviceToken: "",
-  //     fullName: "ABC",
-  //     email: "abc@gmail.com",
+  //     fullName: "Zohaib",
+  //     email: "zohaib32@gmail.com",
   //     notificationApp: "lingmoimtab",
-  //     phone: "03244444444",
-  //   }),
+  //     phone: "0321111111",
+      
   // })
+  // .then(function (response) {
+  //   console.log("response.data==", response.data);
+  // })
+  // .catch(function (error) {
+  //   console.log(error);
+  // });
 
-  axios.post('http://talk2you-live.lingmo-api.com/api/user', {
-      
-      password: "12345678901234567890",
-      languageId: "en-US",
-      couponCode: "",
-      username: "zohaib102",
-      deviceToken: "",
-      fullName: "Zohaib",
-      email: "zohaib32@gmail.com",
-      notificationApp: "lingmoimtab",
-      phone: "0321111111",
-      
-  })
-  .then(function (response) {
-    console.log("response.data==", response.data);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-  }
+  // }
 
   return (
     <TouchableOpacity style={styles.buttonPrimary} onPress={()=>clickFunction()}>

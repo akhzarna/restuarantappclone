@@ -4,23 +4,25 @@ import { TextFieldLarge } from "../fields/TextFieldLarge";
 import { ButtonRegular } from "../buttons/ButtonRegular";
 import { TitleBarLogin } from "../titlebars/TitleBarLogin";
 
-import app from "./firebase";
-import { getDatabase, ref, onValue } from "firebase/database";
+import {auth} from "./firebase";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
+// import firebase from 'firebase/compat/app';
+// import 'firebase/compat/auth';
+// import 'firebase/compat/firestore';
+
+// import auth from '@react-native-firebase/auth';
+
 import { useEffect } from "react";
 
 const LogIn = ({navigation}) => {
 
   useEffect(()=>{
-    const db = getDatabase(app);
-    const dbRef = ref(db, 'sp21');
-    console.log("Receiving Data");
-    onValue(dbRef, (snapshot) => {
-      let data = snapshot.val();
-      // data = data.filter((item) => item !== "undefined");
-      // setData(data);
-      console.log("Data Received --->", data);
-    });
-    // console.log('Binyamin')
+    console.log('useEffect is called ??')
+    // createUserWithEmailAndPassword(auth,'email', 'password')
+    // .then((userCredential)=>{
+    //   console.log('User Created')
+    // })
   },[])
 
   return (
@@ -43,9 +45,18 @@ const LogIn = ({navigation}) => {
         <TextFieldLarge label={"Password"} isPasswordField={true} />
 
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ForgotPasswordScreen')
-          }}
+          onPress={
+            
+          () => {
+            // navigation.navigate('ForgotPasswordScreen')
+            signInWithEmailAndPassword(auth,'email', 'password')
+            .then((userCredential)=>{
+              console.log('User Created')
+            })
+
+          }
+        
+        }
         >
           <Text
             style={{

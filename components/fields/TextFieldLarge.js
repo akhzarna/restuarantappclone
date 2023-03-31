@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 
-const TextFieldLarge = ({ label, isPasswordField }) => {
+const TextFieldLarge = ({ label, isPasswordField, onChangeText, value }) => {
   return (
     <View
       style={{
@@ -22,6 +22,8 @@ const TextFieldLarge = ({ label, isPasswordField }) => {
         style={{ marginLeft: 20, fontFamily:'Poppins' }}
         placeholder={label}
         secureTextEntry={isPasswordField ? true : false}
+        onChangeText={onChangeText}
+        value={value}
       />
     </View>
   );

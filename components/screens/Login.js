@@ -1,11 +1,11 @@
 import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
-
+import { useState } from "react";
 import { TextFieldLarge } from "../fields/TextFieldLarge";
 import { ButtonRegular } from "../buttons/ButtonRegular";
 import { TitleBarLogin } from "../titlebars/TitleBarLogin";
 
 import {auth} from "./firebase";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 // import firebase from 'firebase/compat/app';
 // import 'firebase/compat/auth';
@@ -17,17 +17,73 @@ import { useEffect } from "react";
 
 const LogIn = ({navigation}) => {
 
+  const [text, onChangeText] = useState('Email');
+  const [pass, onChangePassword] = useState('Password');
+
+  const handleLogin = async () => {
+    console.log('Handle Sign In')
+    await signInWithEmailAndPassword(auth, 'zain3@gmail.com', '123456')
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("user data,", user);
+        console.log("user data,", user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("Error,", errorMessage);
+        // ..
+      });
+  };
+
+  const handleSignup = async () => {
+    console.log('LOGGED')
+    await createUserWithEmailAndPassword(auth, 'zain3@gmail.com', '123456')
+      .then((userCredential) => {
+        // Sign Up
+        console.log("Succesfull");
+        const user = userCredential.user;
+        console.log("user data,", user);
+        
+        // write code to save your data in firestore
+        // FirebaseError.firestore.write(user.uid,user.uid)
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Error Code == ',errorCode)
+        console.log('Error Message == ',errorMessage)
+        // ..
+      });
+  };
+  
+  const signInGuest = async () => {
+    
+    await signInAnonymously(auth).then((userCredential)=>{
+      console.log('Done',userCredential)
+    })
+
+  }
+
+
   useEffect(()=>{
-    console.log('useEffect is called ??')
-    // createUserWithEmailAndPassword(auth,'email', 'password')
-    // .then((userCredential)=>{
-    //   console.log('User Created')
-    // })
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log('useEffect to check sign IN', user.email)
+        // navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+      }
+    });
   },[])
 
   return (
     <View style={styles.container}>
       <TitleBarLogin title={"Welcome"}/>
+      
+        <Text>{text}</Text>
+        <Text>{pass}</Text>
 
       <View style={{alignItems:'center', flex:0.30}}>
 
@@ -41,20 +97,34 @@ const LogIn = ({navigation}) => {
       </View>
 
       <View style={{ flex: 0.60, alignItems:'center'}}>
-        <TextFieldLarge label={"E-mail"} />
-        <TextFieldLarge label={"Password"} isPasswordField={true} />
+        <TextFieldLarge 
+          label={"E-mail"} 
+          value={text}
+          onChangeText={(text)=>onChangeText(text)}
+        />
+
+        <TextFieldLarge 
+          label={"Password"} 
+          isPasswordField={true} 
+          value={pass}
+          onChangeText={(pass)=>onChangePassword(pass)}
+          />
 
         <TouchableOpacity
           onPress={
             
-          () => {
-            // navigation.navigate('ForgotPasswordScreen')
-            signInWithEmailAndPassword(auth,'email', 'password')
-            .then((userCredential)=>{
-              console.log('User Created')
-            })
+            () => {
+            handleSignup()
+            }
 
-          }
+          // () => {
+          //   // navigation.navigate('ForgotPasswordScreen')
+          //   createUserWithEmailAndPassword(auth,'email@gmail.com', '123456')
+          //   .then((userCredential)=>{
+          //     console.log('User Created')
+          //   })
+
+          // }
         
         }
         >
@@ -66,12 +136,12 @@ const LogIn = ({navigation}) => {
               color: "darkgrey",
             }}
           >
-            Forgot Password?
+            Forgot Password .....?
           </Text>
         </TouchableOpacity>
 
         <View>
-          <ButtonRegular label="Login" clickFunction={()=>{navigation.navigate("HomeScreen")}}/>
+          <ButtonRegular label="Login" clickFunction={()=>{handleLogin()}}/>
         </View>
 
         <TouchableOpacity
@@ -94,8 +164,8 @@ const LogIn = ({navigation}) => {
 
       <View style={{ flex: 0.1 }}>
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('SignUpScreen');
+          onPress={() => {signInGuest()
+            // navigation.navigate('SignUpScreen');
           }}
         >
           <Text
@@ -106,7 +176,7 @@ const LogIn = ({navigation}) => {
               color: "darkgrey",
             }}
           >
-            New on foodie moodie? Sign up
+            Guest User
           </Text>
         </TouchableOpacity>
       </View>

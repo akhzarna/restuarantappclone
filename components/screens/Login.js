@@ -6,6 +6,7 @@ import { TitleBarLogin } from "../titlebars/TitleBarLogin";
 
 import {auth} from "./firebase";
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import firebase from 'firebase/compat/app';
 // import 'firebase/compat/auth';
@@ -21,14 +22,18 @@ const LogIn = ({navigation}) => {
   const [pass, onChangePassword] = useState('Password');
 
   const handleLogin = async () => {
-    console.log('Handle Sign In')
-    await signInWithEmailAndPassword(auth, 'zain3@gmail.com', '123456')
+    // console.log('Handle Sign In')
+    await signInWithEmailAndPassword(auth, 'akhzar@gmail.com', '123456')
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log("user data,", user);
+        // console.log("user data,", user);
         console.log("user data,", user);
         // ...
+
+        AsyncStorage.setItem("myuser", JSON.stringify(user));
+        navigation.navigate('HomeScreen');
+      
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -39,11 +44,12 @@ const LogIn = ({navigation}) => {
   };
 
   const handleSignup = async () => {
-    console.log('LOGGED')
-    await createUserWithEmailAndPassword(auth, 'zain3@gmail.com', '123456')
+
+    // console.log('LOGGED')
+    await createUserWithEmailAndPassword(auth, 'akhzar1@gmail.com', '123456')
       .then((userCredential) => {
         // Sign Up
-        console.log("Succesfull");
+        // console.log("Succesfull");
         const user = userCredential.user;
         console.log("user data,", user);
         
@@ -141,7 +147,15 @@ const LogIn = ({navigation}) => {
         </TouchableOpacity>
 
         <View>
-          <ButtonRegular label="Login" clickFunction={()=>{handleLogin()}}/>
+          <ButtonRegular label="Login" clickFunction={
+            
+            ()=>{
+              
+              handleLogin()
+
+              }}
+            
+            />
         </View>
 
         <TouchableOpacity

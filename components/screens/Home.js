@@ -209,7 +209,7 @@ function Home({navigation}) {
 
 
     const dbFS = getFirestore();
-    const snapshot = collection(dbFS, 'fastfood');
+    const snapshot = collection(dbFS, 'food');
     
     const q = query(snapshot, ref)
 
@@ -240,16 +240,23 @@ function Home({navigation}) {
 
 
     addDoc(snapshot, 
-      {isliked:false, 
-        key:3, 
-        title:'BCS', 
-        img:'no image', 
-        desc:'Best'
+      {
+        isliked:false, 
+        key:4, 
+        title:'BCS 1', 
+        desc:'Best 1'
       }
     )
 
-    // Update Firestore
+    updateDoc(doc(dbFS, "food", "1CbHHm2ujRGmvOMIWdZx"), {
+      isliked:false
+    }).then(()=>{
+      console.log("Data updated successfully!");
+    }).catch((err)=>{
+      console.log(err)
+    })
 
+    // Update Firestore
     // getDocs(snapshot)
     
 

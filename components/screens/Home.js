@@ -21,10 +21,15 @@ import { Search } from "./Search";
 
 import axios from 'axios';
 
-import {app} from "./firebase";
-import { getDatabase, ref, onValue, set, update } from "firebase/database";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import {app} from "./firebase";
+
+import { getDatabase, ref, onValue, set, update, remove } from "firebase/database";
+
+
+// import { getDatabase, ref, onValue, set, update } from "firebase/database";
+
+// import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   getFirestore,
@@ -125,22 +130,29 @@ function Home({navigation}) {
   };
 
   useEffect(()=>{
-
+  console.log('is this called ???')
+  
   const db = getDatabase(app)
+    
+  const dbRef = ref(db, 'fastfood');
+        onValue(dbRef, (snapshot) => {
+          let data = snapshot.val();
+          console.log('data is ==',data)
+          setMyburgers(data);
+          // AsyncStorage.setItem("deals", JSON.stringify(data));
+      });
+  
 
-  // const dbRef = ref (db, 'alldeals')
-  // set(dbRef,   [{"description": "Hello", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%201.jpeg?alt=media&token=8d457d84-4ff1-4264-927e-1a620223a584", "key": 0, "price": 1400, "title": "Deal 1"}, {"description": "Hello 2", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%202.jpeg?alt=media&token=75f39345-4eda-4045-97d4-fa5bc7e80cde", "key": 1, "price": 1500, "title": "Deal 2"}, {"description": "Hello 456", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%203.png?alt=media&token=63187eb1-b1c7-439a-8cdc-a3753ec7cdc4", "key": 2, "price": 1800, "title": "Deal 3"}, {"description": "Hello World", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%204.jpeg?alt=media&token=feebbc83-8970-467b-8315-055a59179a04", "key": 3, "price": 1200, "title": "Deal 4"}, {"description": "Hello 5", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%205.jpeg?alt=media&token=bbe572eb-e05e-4c1c-97f7-46e20f63ad2b", "key": 4, "price": 800, "title": "Deal 5"}])
+  const dbRefSet = ref (db, 'mobeen')
+  set(dbRefSet,   [{"description": "Hello", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%201.jpeg?alt=media&token=8d457d84-4ff1-4264-927e-1a620223a584", "key": 0, "price": 1400, "title": "Deal 1"}, {"description": "Hello 2", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%202.jpeg?alt=media&token=75f39345-4eda-4045-97d4-fa5bc7e80cde", "key": 1, "price": 1500, "title": "Deal 2"}, {"description": "Hello 456", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%203.png?alt=media&token=63187eb1-b1c7-439a-8cdc-a3753ec7cdc4", "key": 2, "price": 1800, "title": "Deal 3"}, {"description": "Hello World", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%204.jpeg?alt=media&token=feebbc83-8970-467b-8315-055a59179a04", "key": 3, "price": 1200, "title": "Deal 4"}, {"description": "Hello 5", "img": "https://firebasestorage.googleapis.com/v0/b/bcssp21g3.appspot.com/o/Deal%205.jpeg?alt=media&token=bbe572eb-e05e-4c1c-97f7-46e20f63ad2b", "key": 4, "price": 800, "title": "Deal 5"}])
 
-  var index = 0
-  var refData = "alldeals/" + index
+  var index = 3
+  var refData = "mobeen/" + index
   const dbRefForUpdate = ref(db, refData)
-  update(dbRefForUpdate, {isliked:false})
+  update(dbRefForUpdate, {price:2200, title:'Check 1', key:43})
 
-
-
-
-
-
+  // Click on Button and edit on the basis of data not Key
+  // For example update price to 1800 where price is 1400 and less 
 
 
 
@@ -169,9 +181,9 @@ function Home({navigation}) {
    
 
 
-    AsyncStorage.getItem("myuser").then((data) => {
-      let newData = JSON.parse(data);
-      console.log("Check User Data == ", newData.email);
+    // AsyncStorage.getItem("myuser").then((data) => {
+    //   let newData = JSON.parse(data);
+    //   console.log("Check User Data == ", newData.email);
 
       // if (newData){
         /////
@@ -190,13 +202,18 @@ function Home({navigation}) {
         // });
 
       // }
-      });
+     
+    // });
     
 
     // const db = getDatabase(app)
 
     // var index = 2
     // var dbRefRef = 'alldeals/1/secondtarray/'+index
+
+
+
+
 
     // Firestore
 
@@ -208,22 +225,17 @@ function Home({navigation}) {
     // export declare function collection(firestore: Firestore, path: string, ...pathSegments: string[]): CollectionReference<DocumentData>;
 
 
+
     const dbFS = getFirestore();
-    const snapshot = collection(dbFS, 'food');
-    
+    const snapshot = collection(dbFS, 'newcollection');
     const q = query(snapshot, ref)
 
     onSnapshot(q, snapshot=>{
-
-      // console.log('Fetched from Firestore', snapshot.docs[1].data())
-      // var foodiemoodiearray = []
-
       // for(var i=0; i<snapshot.docs.length;i++){
-      //   console.log(snapshot.docs[i].data())
+      //   console.log('Fetched from Firestore',snapshot.docs[i].data())
       // }
-
       snapshot.docs.map(doc=>{
-        console.log(doc.data())
+        console.log('Using Map Function',doc.data())
       })
 
 
@@ -231,6 +243,7 @@ function Home({navigation}) {
       //   console.log(doc.data())
       //   foodiemoodiearray.push(doc.data())
       // })
+      
       // console.log('final data == ',foodiemoodiearray)
       // setMyburgers(foodiemoodiearray)
       // console.log('myburgers == ',myburgers)
@@ -241,15 +254,14 @@ function Home({navigation}) {
 
     addDoc(snapshot, 
       {
-        isliked:false, 
-        key:4, 
-        title:'BCS 1', 
-        desc:'Best 1'
+        key:3, 
+        title:'New One at 4th index', 
+        desc:'Best One at 4th index'
       }
     )
 
-    updateDoc(doc(dbFS, "food", "1CbHHm2ujRGmvOMIWdZx"), {
-      isliked:false
+    updateDoc(doc(dbFS, "newcollection", "HFQ7uLoCMNgYx4pHz0Ji"), {
+      title:'Yes its Done'
     }).then(()=>{
       console.log("Data updated successfully!");
     }).catch((err)=>{
@@ -258,28 +270,28 @@ function Home({navigation}) {
 
     // Update Firestore
     // getDocs(snapshot)
-    
 
-
-    // const getDocRef = doc(dbFS, 'fastfood');
+    // const getDocRef = doc(dbFS, 'mycoll');
     // console(getDocRef)
 
     // updateDoc(getDocRef, [{key:'5'}])
 
-
     // export declare function addDoc<T>(reference: CollectionReference<T>, data: WithFieldValue<T>): Promise<DocumentReference<T>>;
     // export declare function updateDoc<T>(reference: DocumentReference<T>, data: UpdateData<T>): Promise<void>;
 
-   
-
-    //   snapshot.forEach((doc) => {
-    //   console.log(doc.id, '=>', doc.data());
+    //   snapshot.docs.forEach((doc) => {
+    //   console.log('Using for Each', doc.data());
     // });
 
+
+    // snapshot.docs.map(doc=>{
+    //   console.log('Using Map Function',doc.data())
+    // })
+
     // const dbFS = getFirestore();
-    // const querySnapShot = getDocs(collection(dbFS, "food"))
+    // const querySnapShot = getDocs(collection(dbFS, "mycoll"))
     // onSnapshot(querySnapShot,(doc)=>{
-    //   console.log(doc)
+    //   console.log('A new Way',doc)
     // })
 
     // console.log(querySnapShot)

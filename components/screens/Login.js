@@ -5,7 +5,9 @@ import { ButtonRegular } from "../buttons/ButtonRegular";
 import { TitleBarLogin } from "../titlebars/TitleBarLogin";
 
 import {auth} from "./firebase";
+
 import {createUserWithEmailAndPassword, signInWithEmailAndPassword, signInAnonymously, onAuthStateChanged } from "firebase/auth";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // import firebase from 'firebase/compat/app';
@@ -22,40 +24,54 @@ const LogIn = ({navigation}) => {
   const [pass, onChangePassword] = useState('Password');
 
   const handleLogin = async () => {
-    // console.log('Handle Sign In')
+    // navigation.navigate('HomeScreen');
+    console.log('Handle Sign In')
+    
     await signInWithEmailAndPassword(auth, 'akhzar@gmail.com', '123456')
       .then((userCredential) => {
         // Signed in
+        console.log("user data,", userCredential.user.uid);
         const user = userCredential.user;
-        // console.log("user data,", user);
-        console.log("user data,", user);
-        // ...
+        // console.log("user data,", user.uid);
+        // console.log("stsTokenManager", user.stsTokenManager.accessToken);
 
+        // ...
         AsyncStorage.setItem("myuser", JSON.stringify(user));
         navigation.navigate('HomeScreen');
-      
+
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log("Error,", errorMessage);
+        console.log("My Error,", errorMessage);
         // ..
       });
   };
 
   const handleSignup = async () => {
 
-    // console.log('LOGGED')
-    await createUserWithEmailAndPassword(auth, 'akhzar1@gmail.com', '123456')
+    console.log('LOGGED')
+    
+    await createUserWithEmailAndPassword(auth, 'link2akhzar@gmail.com', '123456')
       .then((userCredential) => {
         // Sign Up
-        // console.log("Succesfull");
-        const user = userCredential.user;
-        console.log("user data,", user);
+        console.log("Succesfull",userCredential);
+        // const user = userCredential.user;
+        // console.log("user data,", user);
+
+        // Save other Values in Real Time Database
+        // Save other Values in Firestore DB
+
         
         // write code to save your data in firestore
         // FirebaseError.firestore.write(user.uid,user.uid)
         // ...
+
+
+         // ...
+        //  AsyncStorage.setItem("myuser", JSON.stringify(user));
+         navigation.navigate('HomeScreen');
+ 
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -64,24 +80,28 @@ const LogIn = ({navigation}) => {
         console.log('Error Message == ',errorMessage)
         // ..
       });
+
   };
   
   const signInGuest = async () => {
     
     await signInAnonymously(auth).then((userCredential)=>{
-      console.log('Done',userCredential)
+      console.log('Done',userCredential.user.stsTokenManager.accessToken)
+      navigation.navigate('HomeScreen');
     })
 
   }
 
 
   useEffect(()=>{
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log('useEffect to check sign IN', user.email)
-        // navigation.reset({ index: 0, routes: [{ name: "Home" }] });
-      }
-    });
+
+    // auth.onAuthStateChanged((user) => {
+    //   if (user) {
+    //     console.log('useEffect to check sign IN', user.email)
+    //     // navigation.reset({ index: 0, routes: [{ name: "Home" }] });
+    //   }
+    // });
+
   },[])
 
   return (
@@ -117,8 +137,8 @@ const LogIn = ({navigation}) => {
           />
 
         <TouchableOpacity
+          
           onPress={
-            
             () => {
             handleSignup()
             }
